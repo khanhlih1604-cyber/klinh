@@ -112,6 +112,8 @@
     display: flex; align-items: center; justify-content: center;
     font-family: 'Baloo 2', cursive; font-size: 3rem; color: var(--rose-deeper);
   }
+  .polaroid img.pframe{ object-fit: cover; display: block; }
+  .polaroid .pframe-fallback{ display: none; }
   .polaroid .caption{ position: absolute; bottom: 12px; left: 0; right: 0; font-family: 'Baloo 2', cursive; font-size: 0.95rem; color: var(--ink); }
   .hero-title{ font-size: clamp(1.9rem, 5vw, 2.6rem); color: var(--ink); margin: 6px 0 0; }
   .hero-title span{ color: var(--rose-deeper); }
@@ -264,7 +266,10 @@
   <div class="hero-center">
     <div class="polaroid reveal">
       <div class="washi"></div>
-      <img src="klinh.jpg" alt="Avatar của tôi">
+      <img class="pframe" src="klinh.jpg" alt="Avatar của tôi"
+           onerror="this.style.display='none'; document.getElementById('avatarFallback').style.display='flex';">
+      <div class="pframe pframe-fallback" id="avatarFallback">KL</div>
+      <div class="caption">hi, mình là Linh! 🎀</div>
     </div>
     <h1 class="hero-title reveal">Vũ Khánh <span>Linh</span></h1>
     <div class="hero-badges reveal">
@@ -307,26 +312,12 @@
 
   <div class="video-card reveal">
     <div class="washi"></div>
-    <div class="video-tabs">
-      <button class="video-tab active" data-target="panel-local">📼 Video đã tải lên</button>
-    </div>
 
-    <div class="video-panel active" id="panel-local">
+    <div class="video-panel active" id="panel-drive">
       <div class="video-stage">
-        <video id="localVideo" controls playsinline preload="metadata">
-          <source src="videogiuaky.mp4" type="video/mp4">
-        </video>
-        <div class="video-fallback" id="videoFallback">
-          <div class="emoji">🎥</div>
-        </div>
+        <iframe src="https://drive.google.com/file/d/1DrHnGvncKugs64_mDa9eiNDEwsfbZQCe/preview" allow="autoplay" allowfullscreen></iframe>
       </div>
-      <div class="video-hint">💡 Thay video: đổi tên file video của bạn thành <code>video-giua-ky.mp4</code> rồi để cùng thư mục với file HTML này.</div>
-    </div>
-
-    <div class="video-panel" id="panel-drive">
-      <div class="video-stage">
-        <iframe src="https://drive.google.com/file/d/1DrHnGvncKugs64_mDa9eiNDEwsfbZQCe/view?usp=sharing" allow="autoplay" allowfullscreen></iframe>
-      </div>
+      <div class="video-hint">💡 Đây là bản xem trước từ Google Drive. Để đổi video khác, thay ID trong link (đoạn giữa <code>/d/</code> và <code>/preview</code>) bằng ID video Drive của bạn, và nhớ bật chia sẻ "Bất kỳ ai có đường liên kết".</div>
     </div>
 
     <div class="video-meta">
@@ -466,25 +457,6 @@
   }, { threshold: 0.35 });
   sections.forEach(s=>navIo.observe(s));
 
-  // video tab switching
-  const videoTabs = document.querySelectorAll('.video-tab');
-  const videoPanels = document.querySelectorAll('.video-panel');
-  videoTabs.forEach(tab=>{
-    tab.addEventListener('click', ()=>{
-      videoTabs.forEach(t=>t.classList.remove('active'));
-      videoPanels.forEach(p=>p.classList.remove('active'));
-      tab.classList.add('active');
-      document.getElementById(tab.dataset.target).classList.add('active');
-    });
-  });
-
-  // fallback nếu chưa có file video local
-  const localVideo = document.getElementById('localVideo');
-  const videoFallback = document.getElementById('videoFallback');
-  localVideo.addEventListener('error', ()=>{
-    localVideo.style.display = 'none';
-    videoFallback.classList.add('show');
-  });
 </script>
 </body>
 </html>
