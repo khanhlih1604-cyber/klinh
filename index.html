@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vũ Khánh Linh — Portfolio 🩷</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Quicksand:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream: #FFF8FA;
+    --pink-pale: #FFE9F1;
+    --pink-soft: #FFC9DE;
+    --pink: #FF8FBF;
+    --rose-deep: #E85D93;
+    --rose-deeper: #D2467C;
+    --butter: #FFF3D6;
+    --ink: #5C3A4A;
+    --ink-soft: #9C7583;
+    --white-soft: #FFFFFF;
+    --shadow-soft: 0 20px 40px -20px rgba(216,90,140,0.32);
+    --radius-lg: 28px;
+    --radius-sm: 16px;
+  }
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior: auto; }
+    *{ animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+  }
+  body{
+    margin: 0; font-family: 'Quicksand', sans-serif; color: var(--ink);
+    background: linear-gradient(170deg, var(--cream) 0%, var(--pink-pale) 45%, #FFF0E9 100%);
+    background-attachment: fixed; overflow-x: hidden; position: relative;
+  }
+  h1, h2, h3, .display{ font-family: 'Baloo 2', cursive; font-weight: 700; }
+  a{ color: inherit; text-decoration: none; }
+
+  .blob{ position: fixed; border-radius: 50%; filter: blur(65px); opacity: 0.45; z-index: 0; pointer-events: none; }
+  .blob-1{ width: 360px; height: 360px; background: var(--pink-soft); top: -110px; left: -90px; animation: float1 16s ease-in-out infinite; }
+  .blob-2{ width: 320px; height: 320px; background: var(--butter); bottom: -90px; right: -70px; animation: float2 20s ease-in-out infinite; }
+  @keyframes float1{ 0%,100%{ transform: translate(0,0) scale(1); } 50%{ transform: translate(35px,45px) scale(1.1); } }
+  @keyframes float2{ 0%,100%{ transform: translate(0,0) scale(1); } 50%{ transform: translate(-35px,-30px) scale(1.12); } }
+
+  #sticker-layer{ position: fixed; inset: 0; pointer-events: none; z-index: 1; }
+  .float-sticker{ position: absolute; font-size: 1.5rem; animation: bob 5.5s ease-in-out infinite; opacity: 0.85; filter: drop-shadow(0 6px 10px rgba(216,90,140,0.18)); }
+  @keyframes bob{ 0%,100%{ transform: translateY(0) rotate(-6deg); } 50%{ transform: translateY(-16px) rotate(8deg); } }
+
+  /* washi tape signature element */
+  .washi{
+    position: absolute; height: 26px; width: 90px; opacity: 0.85;
+    background: repeating-linear-gradient(135deg, var(--pink) 0 8px, var(--pink-soft) 8px 16px);
+    box-shadow: 0 4px 8px rgba(216,90,140,0.2);
+  }
+
+  nav{
+    position: sticky; top: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 6vw; background: rgba(255, 248, 250, 0.8); backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(216,90,140,0.16);
+  }
+  .logo-group{ display: flex; align-items: center; gap: 9px; }
+  .logo-mark{
+    width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(135deg, var(--pink), var(--rose-deeper)); color: #fff; font-size: 1.1rem; box-shadow: var(--shadow-soft);
+  }
+  .logo{ font-family: 'Baloo 2', cursive; font-size: 1.25rem; color: var(--ink); }
+  .mssv-chip{
+    font-size: 0.65rem; font-weight: 700; color: var(--rose-deeper);
+    background: rgba(255,201,222,0.55); border: 1px solid rgba(216,90,140,0.3);
+    padding: 4px 11px; border-radius: 999px; margin-left: 8px; white-space: nowrap;
+  }
+  .nav-links{ display: flex; gap: 26px; list-style: none; margin: 0; padding: 0; }
+  .nav-links li a{ position: relative; font-weight: 700; font-size: 0.86rem; color: var(--ink-soft); padding: 6px 4px; }
+  .nav-links li a::after{
+    content: ""; position: absolute; left: 0; bottom: 0; width: 0; height: 2px; border-radius: 2px;
+    background: linear-gradient(90deg, var(--pink), var(--rose-deeper)); transition: width 0.35s ease;
+  }
+  .nav-links li a:hover::after, .nav-links li a.active::after{ width: 100%; }
+  .nav-links li a.active, .nav-links li a:hover{ color: var(--rose-deeper); }
+  .nav-btn{
+    display: inline-flex; align-items: center; gap: 6px; padding: 9px 18px; border-radius: 999px;
+    font-weight: 700; font-size: 0.8rem; cursor: pointer; border: none; font-family: 'Quicksand', sans-serif;
+    background: linear-gradient(120deg, var(--pink), var(--rose-deeper)); color: #fff;
+    transition: transform 0.35s cubic-bezier(.3,1.4,.5,1);
+  }
+  .nav-btn:hover{ transform: translateY(-3px) rotate(-1deg); box-shadow: 0 12px 20px -8px rgba(216,90,140,0.5); }
+
+  section{ position: relative; z-index: 2; padding: 74px 6vw; max-width: 1100px; margin: 0 auto; }
+
+  .reveal{ opacity: 0; transform: translateY(36px) scale(0.97); transition: opacity 0.7s ease, transform 0.7s cubic-bezier(.2,.8,.3,1.15); }
+  .reveal.in-view{ opacity: 1; transform: translateY(0) scale(1); }
+
+  .section-head{ text-align: center; margin-bottom: 46px; }
+  .section-head .eyebrow{
+    display: inline-block; margin-bottom: 12px; background: var(--white-soft); padding: 7px 18px; border-radius: 999px;
+    font-weight: 700; font-size: 0.8rem; color: var(--rose-deeper); box-shadow: var(--shadow-soft);
+  }
+  .section-head h2{ font-size: clamp(1.6rem, 4vw, 2.3rem); color: var(--ink); }
+  .section-head p{ max-width: 540px; margin: 8px auto 0; color: var(--ink-soft); font-size: 0.98rem; }
+
+  /* ===== HERO — polaroid trung tâm kiểu scrapbook ===== */
+  .hero-center{ display: flex; flex-direction: column; align-items: center; gap: 22px; text-align: center; }
+  .polaroid{
+    position: relative; background: #fff; padding: 16px 16px 46px; border-radius: 10px;
+    box-shadow: var(--shadow-soft); transform: rotate(-3deg); width: 210px;
+  }
+  .polaroid .washi{ top: -14px; left: 50%; transform: translateX(-50%) rotate(-4deg); }
+  .polaroid .pframe{
+    width: 100%; aspect-ratio: 1/1; border-radius: 6px; overflow: hidden;
+    background: linear-gradient(160deg, var(--pink-pale), var(--pink-soft));
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Baloo 2', cursive; font-size: 3rem; color: var(--rose-deeper);
+  }
+  .polaroid .caption{ position: absolute; bottom: 12px; left: 0; right: 0; font-family: 'Baloo 2', cursive; font-size: 0.95rem; color: var(--ink); }
+  .hero-title{ font-size: clamp(1.9rem, 5vw, 2.6rem); color: var(--ink); margin: 6px 0 0; }
+  .hero-title span{ color: var(--rose-deeper); }
+  .hero-badges{ display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; max-width: 640px; }
+  .hb{
+    display: flex; align-items: center; gap: 8px; background: var(--white-soft); padding: 9px 16px; border-radius: 999px;
+    font-size: 0.82rem; font-weight: 700; color: var(--ink-soft); box-shadow: var(--shadow-soft);
+    border: 1px solid rgba(216,90,140,0.14);
+  }
+
+  .note-grid{ display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; max-width: 880px; margin: 40px auto 0; }
+  .note{
+    position: relative; background: var(--white-soft); border-radius: var(--radius-lg); padding: 26px 26px 22px;
+    box-shadow: var(--shadow-soft); border: 1.5px dashed rgba(216,90,140,0.28);
+  }
+  .note:nth-child(odd){ transform: rotate(-1.2deg); }
+  .note:nth-child(even){ transform: rotate(1.2deg); }
+  .note h3{ margin: 0 0 10px; font-size: 1.1rem; color: var(--ink); display: flex; align-items: center; gap: 8px; }
+  .note p{ margin: 0; font-size: 0.94rem; line-height: 1.8; color: var(--ink-soft); }
+  .note ul{ list-style: none; margin: 12px 0 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+  .note ul li{ background: rgba(255,201,222,0.32); padding: 8px 12px; border-radius: 12px; font-size: 0.86rem; color: var(--ink-soft); }
+  .note ul li::before{ content: "🎀 "; }
+  .note.full{ grid-column: span 2; transform: rotate(0deg); background: linear-gradient(135deg, var(--pink-soft), var(--butter)); text-align: center; }
+  .note.full p{ font-style: italic; color: var(--ink); }
+  @media (max-width: 700px){ .note-grid{ grid-template-columns: 1fr; } .note.full{ grid-column: span 1; } }
+
+  /* ===== VIDEO NHÓM GIỮA KỲ — điểm nhấn chính ===== */
+  .video-card{
+    max-width: 820px; margin: 0 auto; background: var(--white-soft); border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft); border: 1px solid rgba(216,90,140,0.14); padding: 26px; position: relative;
+  }
+  .video-card .washi{ top: -12px; left: 40px; transform: rotate(-6deg); }
+  .video-tabs{ display: flex; gap: 10px; margin-bottom: 18px; }
+  .video-tab{
+    flex: 1; border: none; cursor: pointer; padding: 12px 14px; border-radius: 14px; font-family: 'Quicksand', sans-serif;
+    font-weight: 700; font-size: 0.85rem; color: var(--ink-soft); background: var(--pink-pale);
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+  .video-tab.active{ background: linear-gradient(120deg, var(--pink), var(--rose-deeper)); color: #fff; }
+  .video-panel{ display: none; }
+  .video-panel.active{ display: block; animation: fadeIn 0.4s ease; }
+  @keyframes fadeIn{ from{ opacity: 0; transform: translateY(8px); } to{ opacity: 1; transform: translateY(0); } }
+  .video-stage{
+    position: relative; width: 100%; aspect-ratio: 16/9; border-radius: var(--radius-sm); overflow: hidden;
+    background: linear-gradient(160deg, #FFF0F5, #FFE3EE); box-shadow: inset 0 0 0 1px rgba(216,90,140,0.12);
+  }
+  .video-stage video, .video-stage iframe{ width: 100%; height: 100%; border: none; display: block; }
+  .video-fallback{
+    position: absolute; inset: 0; display: none; flex-direction: column; align-items: center; justify-content: center;
+    gap: 10px; padding: 20px; text-align: center; color: var(--ink-soft); font-size: 0.88rem;
+  }
+  .video-fallback.show{ display: flex; }
+  .video-fallback .emoji{ font-size: 2.2rem; }
+  .video-fallback code{ background: rgba(216,90,140,0.12); padding: 2px 8px; border-radius: 8px; color: var(--rose-deeper); }
+  .video-hint{ margin-top: 14px; font-size: 0.82rem; color: var(--ink-soft); background: var(--pink-pale); padding: 10px 16px; border-radius: 14px; }
+  .video-hint code{ color: var(--rose-deeper); font-weight: 700; }
+  .video-meta{ display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+  .video-meta .hb{ background: var(--pink-pale); box-shadow: none; border: 1px solid rgba(216,90,140,0.16); }
+
+  /* ===== BÀI TẬP — dải thẻ ghi chú cuộn ngang, khác hoàn toàn timeline/bento ===== */
+  .scroll-row{
+    display: flex; gap: 22px; overflow-x: auto; padding: 12px 6px 26px; scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+  .scroll-row::-webkit-scrollbar{ height: 8px; }
+  .scroll-row::-webkit-scrollbar-thumb{ background: var(--pink-soft); border-radius: 999px; }
+  .s-card{
+    scroll-snap-align: start; flex: 0 0 260px; background: var(--white-soft); border-radius: var(--radius-lg);
+    padding: 22px; box-shadow: var(--shadow-soft); border-top: 6px solid var(--pink);
+    transition: transform 0.35s cubic-bezier(.2,.9,.3,1.3);
+  }
+  .s-card:nth-child(2n){ border-top-color: var(--rose-deeper); margin-top: 18px; }
+  .s-card:hover{ transform: translateY(-6px); }
+  .s-coin{
+    width: 38px; height: 38px; border-radius: 50%; background: linear-gradient(135deg, var(--butter), var(--pink-soft));
+    display: flex; align-items: center; justify-content: center; font-size: 1.1rem; margin-bottom: 12px; box-shadow: var(--shadow-soft);
+  }
+  .s-card h3{ font-size: 1rem; margin: 0 0 10px; color: var(--ink); line-height: 1.4; }
+  .s-card .srow{ font-size: 0.82rem; line-height: 1.6; color: var(--ink-soft); background: rgba(255,201,222,0.28); padding: 8px 10px; border-radius: 10px; margin-bottom: 8px; }
+  .s-card .srow b{ color: var(--ink); }
+  .s-card .drive-btn{
+    display: inline-block; margin-top: 10px; padding: 7px 14px; border-radius: 999px; font-size: 0.75rem; font-weight: 700;
+    background: linear-gradient(120deg, var(--pink), var(--rose-deeper)); color: #fff;
+  }
+  .scroll-hint{ text-align: center; font-size: 0.8rem; color: var(--ink-soft); margin-top: -8px; }
+
+  /* ===== TỔNG KẾT — corkboard ghim, khác accordion & tab ===== */
+  .cork-board{
+    position: relative; display: flex; flex-wrap: wrap; justify-content: center; gap: 26px;
+    padding: 34px 20px; border-radius: var(--radius-lg);
+    background: repeating-linear-gradient(45deg, #FFF3E8 0 2px, #FFEEDF 2px 4px);
+    box-shadow: inset 0 0 0 10px #fff, var(--shadow-soft);
+  }
+  .pin-note{
+    position: relative; width: 240px; background: var(--butter); padding: 20px 18px 18px; border-radius: 8px;
+    box-shadow: 0 14px 24px -12px rgba(120,80,40,0.35);
+    font-size: 0.88rem; line-height: 1.7; color: var(--ink);
+  }
+  .pin-note:nth-child(1){ transform: rotate(-4deg); background: var(--pink-soft); }
+  .pin-note:nth-child(2){ transform: rotate(3deg); background: var(--butter); }
+  .pin-note:nth-child(3){ transform: rotate(-2deg); background: #E8F3FF; }
+  .pin-note:nth-child(4){ transform: rotate(4deg); background: var(--pink-pale); }
+  .pin-note .pin-dot{
+    position: absolute; top: -10px; left: 50%; transform: translateX(-50%); width: 18px; height: 18px; border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #fff, var(--rose-deeper)); box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+  }
+  .pin-note h4{ margin: 6px 0 8px; font-family: 'Baloo 2', cursive; font-size: 1rem; color: var(--rose-deeper); }
+
+  .badge-row{ display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin-top: 46px; }
+  .pin-badge{
+    width: 118px; height: 118px; border-radius: 50%; background: var(--white-soft); box-shadow: var(--shadow-soft);
+    display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+    border: 3px dashed var(--pink-soft); transition: transform 0.35s cubic-bezier(.3,1.4,.5,1);
+  }
+  .pin-badge:hover{ transform: scale(1.08) rotate(-3deg); }
+  .pin-badge .num{ font-family: 'Baloo 2', cursive; font-size: 1.3rem; color: var(--rose-deeper); }
+  .pin-badge .lbl{ font-size: 0.68rem; color: var(--ink-soft); margin-top: 2px; padding: 0 8px; }
+
+  footer{ position: relative; z-index: 2; text-align: center; padding: 36px 6vw 56px; color: var(--ink-soft); font-size: 0.88rem; }
+
+  @media (max-width: 760px){
+    nav{ padding: 14px 5vw; }
+    .nav-links{ display: none; }
+    .cork-board{ padding: 26px 14px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+<div id="sticker-layer"></div>
+
+<nav>
+  <div class="logo-group">
+    <span class="logo-mark">💗</span>
+    <span class="logo">Khánh Linh</span>
+    <span class="mssv-chip">MSV: 25050972</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#gioi-thieu" class="nav-link">Giới thiệu</a></li>
+    <li><a href="#video-nhom" class="nav-link">Video nhóm</a></li>
+    <li><a href="#bai-tap" class="nav-link">Bài tập cá nhân</a></li>
+    <li><a href="#tong-ket" class="nav-link">Tổng kết</a></li>
+  </ul>
+  <a href="#" class="nav-btn">📁 Google Drive</a>
+</nav>
+
+<section id="gioi-thieu">
+  <div class="hero-center">
+    <div class="polaroid reveal">
+      <div class="washi"></div>
+      <div class="pframe">KL</div>
+      <div class="caption">hi, mình là Linh! 🎀</div>
+    </div>
+    <h1 class="hero-title reveal">Vũ Khánh <span>Linh</span></h1>
+    <div class="hero-badges reveal">
+      <div class="hb">🎓 MSV: 25050972</div>
+      <div class="hb">💱 Kinh tế Quốc tế</div>
+      <div class="hb">🏫 ĐH Kinh tế – ĐHQGHN</div>
+    </div>
+
+    <div class="note-grid">
+      <div class="note full reveal">
+        <p>Hiện tại mình là sinh viên ngành <b>Kinh tế Quốc tế</b> tại <b>Trường Đại học Kinh tế – Đại học Quốc gia Hà Nội</b>. Mình thích những con số biết "kể chuyện" — cách một biến động tỷ giá hay một hiệp định thương mại có thể thay đổi cả một nền kinh tế.</p>
+      </div>
+      <div class="note reveal">
+        <h3>🌷 Về bản thân</h3>
+        <p>Mình là người năng động, thích quan sát và tò mò về cách thế giới vận hành qua lăng kính kinh tế. Ngoài giờ học, mình thích đọc tin tài chính, xem podcast kinh doanh và cà phê cùng hội bạn thân.</p>
+      </div>
+      <div class="note reveal">
+        <h3>🎯 Mục tiêu học tập</h3>
+        <ul>
+          <li>Hiểu sâu về thương mại và tài chính quốc tế</li>
+          <li>Rèn kỹ năng phân tích dữ liệu kinh tế</li>
+          <li>Ứng dụng AI hỗ trợ học tập hiệu quả</li>
+          <li>Tự tin làm việc nhóm và thuyết trình</li>
+        </ul>
+      </div>
+      <div class="note full reveal">
+        <h3>💌 Lời kết</h3>
+        <p>Portfolio này là nơi mình lưu lại từng chặng đường nhỏ trên hành trình học Kinh tế Quốc tế — từ những kỹ năng số đầu tiên đến sản phẩm nhóm đáng nhớ nhất kỳ này 🩷</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="video-nhom">
+  <div class="section-head reveal">
+    <span class="eyebrow">Sản phẩm nhóm</span>
+    <h2>🎬 Video bài tập nhóm giữa kỳ</h2>
+    <p>Chủ đề: Tác động của chuỗi cung ứng toàn cầu đến kinh tế Việt Nam — cùng xem lại thành quả cả nhóm nhé!</p>
+  </div>
+
+  <div class="video-card reveal">
+    <div class="washi"></div>
+    <div class="video-tabs">
+      <button class="video-tab active" data-target="panel-local">📼 Video đã tải lên</button>
+      <button class="video-tab" data-target="panel-drive">📁 Google Drive</button>
+    </div>
+
+    <div class="video-panel active" id="panel-local">
+      <div class="video-stage">
+        <video id="localVideo" controls playsinline preload="metadata">
+          <source src="video-giua-ky.mp4" type="video/mp4">
+        </video>
+        <div class="video-fallback" id="videoFallback">
+          <div class="emoji">🎥</div>
+          <p>Chưa tìm thấy video. Hãy đặt file video cùng thư mục với trang này và đặt tên là <code>video-giua-ky.mp4</code>, hoặc chuyển sang tab Google Drive bên cạnh.</p>
+        </div>
+      </div>
+      <div class="video-hint">💡 Thay video: đổi tên file video của bạn thành <code>video-giua-ky.mp4</code> rồi để cùng thư mục với file HTML này.</div>
+    </div>
+
+    <div class="video-panel" id="panel-drive">
+      <div class="video-stage">
+        <iframe src="https://drive.google.com/file/d/YOUR_FILE_ID/preview" allow="autoplay" allowfullscreen></iframe>
+      </div>
+      <div class="video-hint">💡 Thay <code>YOUR_FILE_ID</code> bằng ID video trên Google Drive của bạn (nhớ bật chia sẻ "Bất kỳ ai có đường liên kết").</div>
+    </div>
+
+    <div class="video-meta">
+      <span class="hb">👩‍👩‍👧‍👦 Nhóm 4 thành viên</span>
+      <span class="hb">⏱️ Thời lượng ~8 phút</span>
+      <span class="hb">📊 Môn: Kinh tế Quốc tế</span>
+    </div>
+  </div>
+</section>
+
+<section id="bai-tap">
+  <div class="section-head reveal">
+    <span class="eyebrow">Sản phẩm cá nhân</span>
+    <h2>Hành trình bài tập cá nhân 🪙</h2>
+    <p>Kéo ngang để xem hết các bài tập mình đã hoàn thành nhé</p>
+  </div>
+
+  <div class="scroll-row">
+    <div class="s-card reveal">
+      <div class="s-coin">🗂️</div>
+      <h3>Thao tác cơ bản với tệp tin và thư mục</h3>
+      <div class="srow"><b>⛩️ Mục tiêu:</b> Sắp xếp dữ liệu kinh tế, báo cáo và số liệu thống kê một cách khoa học.</div>
+      <div class="srow"><b>📝 Mô tả quá trình thực hiện:</b> Mình phân loại lại toàn bộ file theo từng môn và từng tuần, đặt tên file thống nhất, rồi thực hành các phím tắt sao chép, di chuyển, nén file để thao tác nhanh hơn.</div>
+      <a href="#" class="drive-btn">GG Drive</a>
+    </div>
+    <div class="s-card reveal">
+      <div class="s-coin">🔍</div>
+      <h3>Tìm kiếm và đánh giá thông tin học thuật</h3>
+      <div class="srow"><b>⛩️ Mục tiêu:</b> Tra cứu dữ liệu thương mại quốc tế từ World Bank, IMF và các nguồn uy tín.</div>
+      <div class="srow"><b>📝 Mô tả quá trình thực hiện:</b> Mình so sánh số liệu giữa nhiều nguồn, lọc ra báo cáo có trích dẫn rõ ràng, ghi chú lại đường link và năm công bố để tiện tra cứu về sau.</div>
+      <a href="#" class="drive-btn">GG Drive</a>
+    </div>
+    <div class="s-card reveal">
+      <div class="s-coin">💬</div>
+      <h3>Viết Prompt hiệu quả cho tác vụ học tập</h3>
+      <div class="srow"><b>⛩️ Mục tiêu:</b> Dùng AI phân tích số liệu GDP, lạm phát và xu hướng kinh tế vĩ mô.</div>
+      <div class="srow"><b>📝 Mô tả quá trình thực hiện:</b> Mình thử nhiều cách đặt câu lệnh khác nhau, thêm bối cảnh và yêu cầu cụ thể cho AI, rồi đối chiếu kết quả với số liệu thật để chỉnh prompt cho chính xác hơn.</div>
+      <a href="#" class="drive-btn">GG Drive</a>
+    </div>
+    <div class="s-card reveal">
+      <div class="s-coin">🤝</div>
+      <h3>Công cụ hợp tác trực tuyến cho dự án nhóm</h3>
+      <div class="srow"><b>⛩️ Mục tiêu:</b> Phối hợp cả nhóm làm video giữa kỳ về chuỗi cung ứng toàn cầu qua Google Workspace.</div>
+      <div class="srow"><b>📝 Mô tả quá trình thực hiện:</b> Cả nhóm chia việc trên Google Docs, họp online qua Meet để thống nhất kịch bản, rồi dùng Drive chung để tổng hợp và dựng video cuối cùng.</div>
+      <a href="#" class="drive-btn">GG Drive</a>
+    </div>
+    <div class="s-card reveal">
+      <div class="s-coin">🎨</div>
+      <h3>Sử dụng AI tạo sinh để hỗ trợ sáng tạo nội dung</h3>
+      <div class="srow"><b>⛩️ Mục tiêu:</b> Thiết kế infographic trực quan hoá số liệu xuất nhập khẩu bằng AI.</div>
+      <div class="srow"><b>📝 Mô tả quá trình thực hiện:</b> Mình phác thảo bố cục trước, dùng AI gợi ý màu sắc và biểu đồ phù hợp, sau đó chỉnh sửa lại số liệu và chú thích cho chính xác với nguồn gốc.</div>
+      <a href="#" class="drive-btn">GG Drive</a>
+    </div>
+    <div class="s-card reveal">
+      <div class="s-coin">🛡️</div>
+      <h3>Sử dụng AI có trách nhiệm trong học tập</h3>
+      <div class="srow"><b>⛩️ Mục tiêu:</b> Đảm bảo liêm chính học thuật và trích dẫn đúng nguồn số liệu kinh tế khi dùng AI.</div>
+      <div class="srow"><b>📝 Mô tả quá trình thực hiện:</b> Mình lập danh sách các nguồn AI đã hỗ trợ, ghi rõ phần nào tự làm và phần nào có sự trợ giúp, đồng thời kiểm tra lại số liệu trước khi trích dẫn vào bài.</div>
+      <a href="#" class="drive-btn">GG Drive</a>
+    </div>
+  </div>
+  <p class="scroll-hint">← kéo để xem thêm →</p>
+</section>
+
+<section id="tong-ket">
+  <div class="section-head reveal">
+    <span class="eyebrow">Tổng kết</span>
+    <h2>Góc ghi chú nhỏ 📌</h2>
+    <p>Vài mảnh giấy note mình dán lại sau một kỳ học nhiều trải nghiệm</p>
+  </div>
+
+  <div class="cork-board reveal">
+    <div class="pin-note"><span class="pin-dot"></span><h4>💡 Bài học cốt lõi</h4>Số liệu kinh tế chỉ có ý nghĩa khi mình biết đặt câu hỏi đúng. AI giúp mình xử lý nhanh hơn, nhưng tư duy phản biện vẫn là của riêng mình.</div>
+    <div class="pin-note"><span class="pin-dot"></span><h4>🌱 Trưởng thành</h4>Từ một đứa còn lóng ngóng với Excel, giờ mình đã tự tin dựng bảng phân tích và làm việc nhóm trơn tru hơn rất nhiều.</div>
+    <div class="pin-note"><span class="pin-dot"></span><h4>🎯 Mục tiêu môn học</h4>Mình muốn hiểu sâu về thương mại quốc tế và biết dùng công nghệ, AI một cách có trách nhiệm để hỗ trợ việc học.</div>
+    <div class="pin-note"><span class="pin-dot"></span><h4>💝 Từ Portfolio</h4>Làm portfolio giúp mình nhìn lại cả chặng đường — từ bài tập cá nhân đến video nhóm giữa kỳ đáng nhớ.</div>
+  </div>
+
+  <div class="badge-row">
+    <div class="pin-badge reveal"><div class="num">06/06</div><div class="lbl">Bài tập hoàn thành</div></div>
+    <div class="pin-badge reveal"><div class="num">1</div><div class="lbl">Video nhóm giữa kỳ</div></div>
+    <div class="pin-badge reveal"><div class="num">100%</div><div class="lbl">Cố gắng mỗi ngày</div></div>
+    <div class="pin-badge reveal"><div class="num">A+</div><div class="lbl">Mục tiêu môn học</div></div>
+  </div>
+</section>
+
+<footer>
+  🩷 made by Vũ Khánh Linh — cảm ơn đã ghé thăm! 🎀
+</footer>
+
+<script>
+  const stickerEmojis = ['🎀','🩷','💌','⭐','☁️','🪙','📈','✨'];
+  const layer = document.getElementById('sticker-layer');
+  const stickers = [];
+  for(let i=0;i<12;i++){
+    const el = document.createElement('div');
+    el.className = 'float-sticker';
+    el.textContent = stickerEmojis[i % stickerEmojis.length];
+    el.style.left = (Math.random()*100) + 'vw';
+    el.style.top = (Math.random()*380) + 'vh';
+    el.style.animationDelay = (Math.random()*4) + 's';
+    el.style.animationDuration = (4 + Math.random()*3) + 's';
+    el.style.fontSize = (1.1 + Math.random()*1.1) + 'rem';
+    layer.appendChild(el);
+    stickers.push({ el, speed: 0.05 + Math.random()*0.15 });
+  }
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+    stickers.forEach(s => { s.el.style.transform = `translateY(${-y * s.speed}px)`; });
+  }, { passive: true });
+
+  const reveals = document.querySelectorAll('.reveal');
+  reveals.forEach((el, i) => { el.style.transitionDelay = (i % 6) * 0.06 + 's'; });
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){ entry.target.classList.add('in-view'); io.unobserve(entry.target); }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el=>io.observe(el));
+
+  document.querySelectorAll('a[href^="#"]').forEach(link=>{
+    link.addEventListener('click', (e)=>{
+      const target = document.querySelector(link.getAttribute('href'));
+      if(target){ e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    });
+  });
+
+  const navLinks = document.querySelectorAll('.nav-link');
+  const sections = document.querySelectorAll('section[id]');
+  const navIo = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        const id = entry.target.getAttribute('id');
+        navLinks.forEach(l=>{ l.classList.toggle('active', l.getAttribute('href') === '#' + id); });
+      }
+    });
+  }, { threshold: 0.35 });
+  sections.forEach(s=>navIo.observe(s));
+
+  // video tab switching
+  const videoTabs = document.querySelectorAll('.video-tab');
+  const videoPanels = document.querySelectorAll('.video-panel');
+  videoTabs.forEach(tab=>{
+    tab.addEventListener('click', ()=>{
+      videoTabs.forEach(t=>t.classList.remove('active'));
+      videoPanels.forEach(p=>p.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById(tab.dataset.target).classList.add('active');
+    });
+  });
+
+  // fallback nếu chưa có file video local
+  const localVideo = document.getElementById('localVideo');
+  const videoFallback = document.getElementById('videoFallback');
+  localVideo.addEventListener('error', ()=>{
+    localVideo.style.display = 'none';
+    videoFallback.classList.add('show');
+  });
+</script>
+</body>
+</html>
