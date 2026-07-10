@@ -1,0 +1,53 @@
+:root {
+    --cream: #FFF8FA;
+    --pink-pale: #FFE9F1;
+    --pink-soft: #FFC9DE;
+    --pink: #FF8FBF;
+    --rose-deep: #E85D93;
+    --rose-deeper: #D2467C;
+    --butter: #FFF3D6;
+    --ink: #5C3A4A;
+    --ink-soft: #9C7583;
+    --white-soft: #FFFFFF;
+    --shadow-soft: 0 20px 40px -20px rgba(216,90,140,0.32);
+    --radius-lg: 28px;
+    --radius-sm: 16px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: 'Quicksand', sans-serif;
+    background-color: var(--cream);
+    color: var(--ink);
+    line-height: 1.6;
+}
+
+/* Các thành phần giao diện khác của bạn... */
+/* Lưu ý: Đây là phần trích xuất cơ bản từ file bạn cung cấp */
+
+.hero {
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.section-title {
+    font-family: 'Baloo 2', cursive;
+    color: var(--rose-deeper);
+}
+
+.video-tab.active {
+    background: var(--pink);
+    color: white;
+}
+
+.video-panel {
+    display: none;
+}
+
+.video-panel.active {
+    display: block;
+}
+
+/* Bạn có thể thêm các định nghĩa CSS cụ thể khác tại đây dựa trên file gốc */
